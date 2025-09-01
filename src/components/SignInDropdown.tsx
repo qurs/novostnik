@@ -2,6 +2,7 @@
 import { Button } from "@/components/ui/button"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { signIn } from "next-auth/react"
+import { useId } from "react"
 import { BsDiscord } from "react-icons/bs"
 
 export default function SignInDropdown() {

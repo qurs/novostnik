@@ -17,11 +17,11 @@ model News {
 	id 		String 	@id @default(cuid())
 	title 	String 	@unique
 	slug 	String 	@unique
-	content String
-	image 	String
+	content String 	@default("")
+	image 	String	@default("/public/next.svg")
 	draft 	Boolean @default(true)
 	isPinned Boolean @default(false)
-	categoryId String
+	categoryId String	@default("")
 	publishedAt DateTime?
 	pinnedAt DateTime?
 }

@@ -12,6 +12,7 @@ import { fetchPinnedNews } from "@/actions/news"
 import { useState, useEffect } from "react"
 import { News } from "@/generated/client"
 import { Montserrat } from "next/font/google"
+import { useRouter } from "next/navigation"
 
 const montserrat = Montserrat({
 	subsets: ['latin', 'cyrillic'],
@@ -19,6 +20,8 @@ const montserrat = Montserrat({
 
 export default function PinnedNewsCarousel() {
 	const [pinnedNews, setPinnedNews] = useState<News[]>([])
+
+	const router = useRouter()
 
 	useEffect(() => {
 		fetchPinnedNews().then((data) => {
@@ -33,7 +36,7 @@ export default function PinnedNewsCarousel() {
 				<CarouselContent>
 					{pinnedNews.map((news: News) => (
 						<CarouselItem key={news.id}>
-							<NewsCard title={news.title} image={news.image} />
+							<NewsCard onClick={() => router.push(`/news/${news.slug}`)} title={news.title} image={news.image} />
 						</CarouselItem>
 					))}
 				</CarouselContent>

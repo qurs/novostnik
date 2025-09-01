@@ -288,11 +288,11 @@ export type NewsCreateInput = {
   id?: string
   title: string
   slug: string
-  content: string
-  image: string
+  content?: string
+  image?: string
   draft?: boolean
   isPinned?: boolean
-  categoryId: string
+  categoryId?: string
   publishedAt?: Date | string | null
   pinnedAt?: Date | string | null
 }
@@ -301,11 +301,11 @@ export type NewsUncheckedCreateInput = {
   id?: string
   title: string
   slug: string
-  content: string
-  image: string
+  content?: string
+  image?: string
   draft?: boolean
   isPinned?: boolean
-  categoryId: string
+  categoryId?: string
   publishedAt?: Date | string | null
   pinnedAt?: Date | string | null
 }
@@ -340,11 +340,11 @@ export type NewsCreateManyInput = {
   id?: string
   title: string
   slug: string
-  content: string
-  image: string
+  content?: string
+  image?: string
   draft?: boolean
   isPinned?: boolean
-  categoryId: string
+  categoryId?: string
   publishedAt?: Date | string | null
   pinnedAt?: Date | string | null
 }

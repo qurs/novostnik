@@ -8,7 +8,6 @@ import {
 	List,
 	ListOrdered,
 	PaintBucket,
-	Palette,
 	Unlink
 } from "lucide-react"
 import { Toggle } from "../ui/toggle"
@@ -18,6 +17,7 @@ import { Button } from "../ui/button";
 import { Label } from "../ui/label";
 import { Input } from "../ui/input";
 import { useState } from "react";
+import LinkElement from "./elements/LinkElement";
 
 interface Option {
 	icon?: React.ReactNode,
@@ -93,39 +93,7 @@ export default function EditorMenuBar({ editor }: {editor: Editor}) {
 		},
 		{
 			tooltip: 'Link',
-			customElement: (
-				<Dialog>
-					<DialogTrigger>
-						<Link className="size-4 cursor-pointer" />
-					</DialogTrigger>
-					
-					<DialogContent>
-						<DialogHeader>
-							<DialogTitle>Creating hyperlink</DialogTitle>
-						</DialogHeader>
-
-						<Label htmlFor="editor-link">Link</Label>
-						<Input id="editor-link" defaultValue="" placeholder="https://google.com/" onChange={e => setLink(e.currentTarget.value)} />
-
-						<DialogFooter>
-							<DialogClose asChild>
-								<Button variant="outline">Cancel</Button>
-							</DialogClose>
-							<DialogClose asChild>
-								<Button onClick={() => editor.chain().focus().setLink({ href: link }).run()}>Create</Button>
-							</DialogClose>
-						</DialogFooter>
-					</DialogContent>
-				</Dialog>
-			),
-		},
-		{
-			tooltip: 'Unlink',
-			customElement: (
-				<div className="inline-flex">
-					<Unlink className="size-4 cursor-pointer" onClick={() => editor.chain().focus().unsetLink().run()} />
-				</div>
-			),
+			customElement: <LinkElement editor={editor} />,
 		},
 	]
 
