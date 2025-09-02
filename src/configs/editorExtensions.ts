@@ -4,6 +4,7 @@ import { BulletList, OrderedList } from '@tiptap/extension-list'
 import { BackgroundColor, TextStyle, Color } from '@tiptap/extension-text-style'
 import { TableKit } from '@tiptap/extension-table'
 import Link from '@tiptap/extension-link'
+import Image from '@tiptap/extension-image'
 
 export default function getExtensions() {
 	const LinkExtenstion = Link.configure({
@@ -38,5 +39,6 @@ export default function getExtensions() {
 		TextStyle, BackgroundColor, Color,
 		LinkExtenstion,
 		TableKit,
+		Image,
 	]
 }

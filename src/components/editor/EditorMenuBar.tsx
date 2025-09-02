@@ -4,6 +4,7 @@ import {
 	Heading1,
 	Heading2,
 	Heading3,
+	ImageIcon,
 	Link,
 	List,
 	ListOrdered,
@@ -16,6 +17,7 @@ import HeadingElement from "./elements/HeadingElement";
 import ListElement, { ListElementType } from "./elements/ListElement";
 import ColorElement, { ColorElementType } from "./elements/ColorElement";
 import TableElement from "./elements/TableElement";
+import ImageElement from "./elements/ImageElement";
 
 export default function EditorMenuBar({ editor }: {editor: Editor}) {
 	if (!editor) {
@@ -66,6 +68,10 @@ export default function EditorMenuBar({ editor }: {editor: Editor}) {
 			<TableElement editor={editor}>
 				<Table className="size-4 cursor-pointer" />
 			</TableElement>
+
+			<Separator className="h-8!" orientation="vertical" />
+
+			<ImageElement editor={editor} />
 		</div>
 	)
 }

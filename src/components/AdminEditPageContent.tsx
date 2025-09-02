@@ -8,7 +8,8 @@ import EditorForm from './editor/EditorForm'
 import { useRouter } from 'next/navigation'
 import { toast } from 'sonner'
 import getExtensions from '@/configs/editorExtensions'
-import EditorSettings from './editor/EditorSettings'
+import EditorMetadataSettings from './editor/EditorMetadataSettings'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from './ui/tabs'
 
 export default function AdminEditPageContent({
 	news
@@ -43,14 +44,24 @@ export default function AdminEditPageContent({
 
 	return (
 		<div className="flex flex-col rounded-xl min-h-[75vh] p-1 m-5 xxxs:m-8 xs:m-10 sm:m-15 md:mx-15 md:mt-15 lg:mt-20 bg-stone-900/50">
-			<EditorSettings news={news} />
-			<EditorMenuBar editor={editor!} />
-			<EditorContent className='w-full min-h-[75vh]' editor={editor} />
-			<EditorForm onConfirm={() => {
-				fetch(`/api/news/update/${news.id}`, { method: 'POST', body: editor?.getHTML() }).then(res => {
-					setResponseStatus(res.status)
-				})
-			}} onDecline={() => router.push('/admin/editlist/1')} />
+			<Tabs defaultValue='metadata'>
+				<TabsList>
+					<TabsTrigger value='metadata'>Metadata</TabsTrigger>
+					<TabsTrigger value='content'>Content</TabsTrigger>
+				</TabsList>
+				<TabsContent value='metadata'>
+					<EditorMetadataSettings initialNews={news} />
+				</TabsContent>
+				<TabsContent value='content'>
+					<EditorMenuBar editor={editor!} />
+					<EditorContent className='w-full min-h-[75vh]' editor={editor} />
+					<EditorForm onConfirm={() => {
+						fetch(`/api/news/update/${news.id}`, { method: 'POST', body: editor?.getHTML() }).then(res => {
+							setResponseStatus(res.status)
+						})
+					}} onDecline={() => router.push('/admin/editlist/1')} />
+				</TabsContent>
+			</Tabs>
 		</div>
 	)
 }

@@ -1,6 +1,6 @@
 'use server'
 
-import { PrismaClient, News } from "@/generated/client"
+import { PrismaClient, News, NewsCategory } from "@/generated/client"
 import { PrismaClientKnownRequestError } from "@/generated/internal/prismaNamespace"
 import { getServerSession } from "next-auth"
 import { generateSlug } from 'url-slug-generator'
@@ -8,12 +8,23 @@ import { generateSlug } from 'url-slug-generator'
 
 const prisma = new PrismaClient()
 
-interface Response {
+export interface NewsResponse {
 	ok: boolean
 	err?: string
+	news?: News
 }
 
-export async function createNews(title: string): Promise<Response> {
+interface UpdateNewsStruct {
+	title?: string,
+	image?: string,
+	draft: boolean,
+	isPinned: boolean,
+	categoryId: string,
+	publishedAt: Date | null,
+	pinnedAt: Date | null,
+}
+
+export async function createNews(title: string): Promise<NewsResponse> {
 	try {
 		const slug = generateSlug(title, {maxLength: 64})
 		await prisma.news.create({ data: {title, slug} })
@@ -43,40 +54,15 @@ export async function createNews(title: string): Promise<Response> {
 	}
 }
 
-export async function updateNewsTitle(id: string, title: string): Promise<Response> {
+export async function updateNewsMetadata(id: string, data: UpdateNewsStruct): Promise<NewsResponse> {
 	try {
-		const slug = generateSlug(title, {maxLength: 64})
-		await prisma.news.update({ where: {id}, data: {title, slug} })
-		return {ok: true}
-	}
-	catch (e) {
-		if (e instanceof PrismaClientKnownRequestError) {
-			let err = ''
-			switch (e.code) {
-				case 'P2002':
-					err = `Duplicate field value`
-					break
-				case 'P2014':
-					err = `Invalid ID`
-					break
-				case 'P2003':
-					err = `Invalid input data`
-					break
-				default:
-					err = `Something went wrong`
-			}
-
-			return {ok: false, err: err}
+		let slug: string | undefined
+		if (data.title) {
+			slug = generateSlug(data.title, {maxLength: 64})
 		}
 
-		return {ok: false}
-	}
-}
-
-export async function updateNewsImage(id: string, image: string): Promise<Response> {
-	try {
-		await prisma.news.update({ where: {id}, data: {image} })
-		return {ok: true}
+		const news = await prisma.news.update({ where: {id}, data: {slug, ...data} })
+		return {ok: true, news: news}
 	}
 	catch (e) {
 		if (e instanceof PrismaClientKnownRequestError) {
@@ -121,6 +107,10 @@ export async function fetchNews(page: number, pageSize: number): Promise<News[]>
 		skip: (page - 1) * pageSize,
 		take: pageSize
 	})
+}
+
+export async function fetchCategories(): Promise<NewsCategory[]> {
+	return await prisma.newsCategory.findMany()
 }
 
 export async function fetchNewsMaxPage(pageSize: number): Promise<number> {
