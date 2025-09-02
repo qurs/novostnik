@@ -8,15 +8,74 @@ import { generateSlug } from 'url-slug-generator'
 
 const prisma = new PrismaClient()
 
-interface CreateResponse {
+interface Response {
 	ok: boolean
 	err?: string
 }
 
-export async function createNews(title: string): Promise<CreateResponse> {
+export async function createNews(title: string): Promise<Response> {
 	try {
 		const slug = generateSlug(title, {maxLength: 64})
 		await prisma.news.create({ data: {title, slug} })
+		return {ok: true}
+	}
+	catch (e) {
+		if (e instanceof PrismaClientKnownRequestError) {
+			let err = ''
+			switch (e.code) {
+				case 'P2002':
+					err = `Duplicate field value`
+					break
+				case 'P2014':
+					err = `Invalid ID`
+					break
+				case 'P2003':
+					err = `Invalid input data`
+					break
+				default:
+					err = `Something went wrong`
+			}
+
+			return {ok: false, err: err}
+		}
+
+		return {ok: false}
+	}
+}
+
+export async function updateNewsTitle(id: string, title: string): Promise<Response> {
+	try {
+		const slug = generateSlug(title, {maxLength: 64})
+		await prisma.news.update({ where: {id}, data: {title, slug} })
+		return {ok: true}
+	}
+	catch (e) {
+		if (e instanceof PrismaClientKnownRequestError) {
+			let err = ''
+			switch (e.code) {
+				case 'P2002':
+					err = `Duplicate field value`
+					break
+				case 'P2014':
+					err = `Invalid ID`
+					break
+				case 'P2003':
+					err = `Invalid input data`
+					break
+				default:
+					err = `Something went wrong`
+			}
+
+			return {ok: false, err: err}
+		}
+
+		return {ok: false}
+	}
+}
+
+export async function updateNewsImage(id: string, image: string): Promise<Response> {
+	try {
+		await prisma.news.update({ where: {id}, data: {image} })
 		return {ok: true}
 	}
 	catch (e) {
@@ -78,12 +137,13 @@ export async function setNewsContent(id: string, content: string): Promise<boole
 	}
 }
 
-export async function isCurrentUserAdmin(): Promise<boolean> {
+export async function isCurrentUserAdmin(): Promise<string | undefined> {
 	const session = await getServerSession()
-	if (!session || !session.user || !session.user.email) return false
+	if (!session || !session.user || !session.user.email) return
 
 	const user = await prisma.admins.findUnique({ where: { email: session.user.email } })
-	if (!user || !user.role) return false
+	if (!user || !user.role) return
 
-	return user.role == process.env.NEXT_PUBLIC_ADMIN_ROLE
+	if (user.role != process.env.NEXT_PUBLIC_ADMIN_ROLE) return
+	return user.role
 }

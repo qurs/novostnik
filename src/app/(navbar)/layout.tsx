@@ -24,7 +24,7 @@ export default function NavbarLayout({ children }: { children: React.ReactNode }
 
 	useEffect(() => {
 		isCurrentUserAdmin().then(res => {
-			setIsAdmin(res)
+			setIsAdmin(!!res)
 		})
 	}, [session])
 
@@ -75,7 +75,7 @@ export default function NavbarLayout({ children }: { children: React.ReactNode }
 												<DropdownMenuPortal>
 													<DropdownMenuSubContent>
 														<div className="flex justify-center items-center gap-2">
-															<Input maxLength={64} placeholder="New page title" onKeyDown={e => {if (e.code == 'Enter') createNewPage()}} onChange={e => setNewPageTitle(e.currentTarget.value)} />
+															<Input minLength={3} maxLength={64} placeholder="New page title" onKeyDown={e => {if (e.code == 'Enter') createNewPage()}} onChange={e => setNewPageTitle(e.currentTarget.value)} />
 															<Tooltip>
 																<TooltipTrigger>
 																	<Check className="size-6 cursor-pointer" onClick={createNewPage} />

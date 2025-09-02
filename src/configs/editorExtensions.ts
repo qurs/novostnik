@@ -2,6 +2,7 @@ import StarterKit from '@tiptap/starter-kit'
 import TextAlign from "@tiptap/extension-text-align"
 import { BulletList, OrderedList } from '@tiptap/extension-list'
 import { BackgroundColor, TextStyle, Color } from '@tiptap/extension-text-style'
+import { TableKit } from '@tiptap/extension-table'
 import Link from '@tiptap/extension-link'
 
 export default function getExtensions() {
@@ -36,5 +37,6 @@ export default function getExtensions() {
 		OrderedList, BulletList,
 		TextStyle, BackgroundColor, Color,
 		LinkExtenstion,
+		TableKit,
 	]
 }

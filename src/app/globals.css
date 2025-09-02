@@ -157,4 +157,28 @@
   a {
     @apply text-purple-400 cursor-pointer hover:text-purple-500 hover:underline
   }
+
+  table {
+    @apply border-collapse my-4 text-sm;
+  }
+
+  thead {
+    @apply bg-muted;
+  }
+
+  th {
+    @apply border border-border px-3 py-2 text-left font-medium;
+  }
+
+  td {
+    @apply border border-border px-3 py-2;
+  }
+
+  tbody tr:nth-child(even) {
+    @apply bg-muted/40;
+  }
+
+  tbody tr:hover {
+    @apply bg-muted/60;
+  }
 }

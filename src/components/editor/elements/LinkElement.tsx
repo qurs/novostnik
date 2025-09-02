@@ -1,13 +1,15 @@
 import { Editor } from "@tiptap/react"
 import { Input } from "@/components/ui/input";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { Check, Link, Unlink } from "lucide-react";
+import { Check, Unlink } from "lucide-react";
 import { useState } from "react";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 
 export default function LinkElement({
+	children,
 	editor
 }: {
+	children: React.ReactNode,
 	editor: Editor
 }) {
 	const [ link, setLink ] = useState<string>('')
@@ -19,7 +21,14 @@ export default function LinkElement({
 	return (
 		<Popover>
 			<PopoverTrigger>
-				<Link className="size-4 cursor-pointer" />
+				<Tooltip>
+					<TooltipTrigger asChild>
+						{children}
+					</TooltipTrigger>
+					<TooltipContent>
+						Link
+					</TooltipContent>
+				</Tooltip>
 			</PopoverTrigger>
 			<PopoverContent className="p-2">
 				<div className="flex justify-center items-center gap-3">

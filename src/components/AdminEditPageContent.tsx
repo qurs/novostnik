@@ -8,6 +8,7 @@ import EditorForm from './editor/EditorForm'
 import { useRouter } from 'next/navigation'
 import { toast } from 'sonner'
 import getExtensions from '@/configs/editorExtensions'
+import EditorSettings from './editor/EditorSettings'
 
 export default function AdminEditPageContent({
 	news
@@ -42,6 +43,7 @@ export default function AdminEditPageContent({
 
 	return (
 		<div className="flex flex-col rounded-xl min-h-[75vh] p-1 m-5 xxxs:m-8 xs:m-10 sm:m-15 md:mx-15 md:mt-15 lg:mt-20 bg-stone-900/50">
+			<EditorSettings news={news} />
 			<EditorMenuBar editor={editor!} />
 			<EditorContent className='w-full min-h-[75vh]' editor={editor} />
 			<EditorForm onConfirm={() => {
