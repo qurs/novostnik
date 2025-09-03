@@ -38,7 +38,7 @@ export default function ColorElement({
 					{children}
 					<input
 						type="color"
-						onChange={e => setColor(e.currentTarget.value)}
+						onBlur={e => setColor(e.currentTarget.value)}
 						className="w-6 h-6 p-0 m-0 border-0 bg-transparent cursor-pointer"
 					/>
 				</label>
