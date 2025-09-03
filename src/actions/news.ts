@@ -55,11 +55,19 @@ export async function updateNewsMetadata(id: string, formData: FormData): Promis
 	if (validatedFields.data.image) {
 		const utapi = new UTApi();
 		const file = new UTFile([validatedFields.data.image], validatedFields.data.image.name, { customId: `uploaded-${validatedFields.data.image.name}` });
-		const [res] = await utapi.uploadFiles([file]);
-		if (res.error) {
-			return {ok: false, err: res.error.message}
+
+		const url = `https://${process.env.UPLOADTHING_APPID}.ufs.sh/f/uploaded-${validatedFields.data.image.name}`
+		const res = await fetch(url)
+		if (res.ok) {
+			imageUrl = url
 		}
-		imageUrl = res.data.ufsUrl
+		else {
+			const [res] = await utapi.uploadFiles([file]);
+			if (res.error) {
+				return {ok: false, err: res.error.message}
+			}
+			imageUrl = res.data.ufsUrl
+		}
 	}
 
 	const { image, ...restData } = validatedFields.data
