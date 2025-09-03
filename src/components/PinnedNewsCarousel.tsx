@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/carousel"
 import NewsCard from "./NewsCard"
 import { useState, useEffect } from "react"
-import { News } from "@/generated/client"
+import { News } from "@/generated/prisma/client"
 import { Montserrat } from "next/font/google"
 import { useRouter } from "next/navigation"
 import { Skeleton } from "./ui/skeleton"

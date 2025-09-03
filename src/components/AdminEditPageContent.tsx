@@ -3,7 +3,7 @@
 import { useEditor, EditorContent } from '@tiptap/react'
 import EditorMenuBar from './editor/EditorMenuBar'
 import { useEffect, useRef, useState } from 'react'
-import { News } from '@/generated/client'
+import { News } from '@/generated/prisma/client'
 import EditorForm from './editor/EditorForm'
 import { useRouter } from 'next/navigation'
 import { toast } from 'sonner'

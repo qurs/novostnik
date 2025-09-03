@@ -1,4 +1,4 @@
-import { News } from "@/generated/client";
+import { News } from "@/generated/prisma/client";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { updateNewsMetadata } from "@/actions/news";

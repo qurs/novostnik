@@ -1,4 +1,4 @@
-import { News } from "@/generated/client";
+import { News } from "@/generated/prisma/client";
 import { Pagination, PaginationContent, PaginationEllipsis, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "./ui/pagination";
 import NewsCard from "./NewsCard";
 import { useRouter, useSearchParams } from "next/navigation";

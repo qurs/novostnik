@@ -1,5 +1,5 @@
 'use server'
-import { News } from "@/generated/client"
+import { News } from "@/generated/prisma/client"
 import { notFound } from "next/navigation"
 import PageContent from "@/components/PageContent"
 import { fetchNewsFromDBBySlug } from "@/actions/db"

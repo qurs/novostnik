@@ -1,7 +1,7 @@
 'use server'
 import { isCurrentUserAdmin, fetchNewsFromDBById } from "@/actions/db"
 import AdminEditPageContent from "@/components/AdminEditPageContent"
-import { News } from "@/generated/client"
+import { News } from "@/generated/prisma/client"
 import { notFound } from "next/navigation"
 
 export default async function AdminEditPage({ 

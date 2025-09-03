@@ -5,7 +5,7 @@ import { Check, ChevronsUpDown } from "lucide-react"
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "./ui/command"
 import { cn } from "@/lib/utils"
 import { fetchCategories } from "@/actions/db"
-import { NewsCategory } from "@/generated/client"
+import { NewsCategory } from "@/generated/prisma/client"
 
 export default function CategoryCombobox({
 	ref,

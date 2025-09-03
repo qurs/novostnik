@@ -1,7 +1,7 @@
 'use server'
 
-import { PrismaClient, News, NewsCategory } from "@/generated/client"
-import { NewsWhereInput, PrismaClientKnownRequestError } from "@/generated/internal/prismaNamespace"
+import { PrismaClient, News, NewsCategory } from "@/generated/prisma/client"
+import { NewsWhereInput, PrismaClientKnownRequestError } from "@/generated/prisma/internal/prismaNamespace"
 import { getServerSession } from "next-auth"
 import { generateSlug } from 'url-slug-generator'
 

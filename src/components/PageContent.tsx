@@ -1,7 +1,7 @@
 'use client'
 
 import getExtensions from "@/configs/editorExtensions"
-import { News } from "@/generated/client"
+import { News } from "@/generated/prisma/client"
 import { renderToReactElement } from "@tiptap/static-renderer"
 import { generateJSON, JSONContent } from "@tiptap/core"
 import Image from "next/image"
