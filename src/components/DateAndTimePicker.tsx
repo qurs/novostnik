@@ -7,12 +7,14 @@ import { Calendar } from "./ui/calendar"
 import { Input } from "./ui/input"
 
 export default function DateAndTimePicker({
-	ref
+	ref,
+	defaultValue,
 }: {
-	ref: Ref<() => Date | null>
+	ref: Ref<() => Date | null>,
+	defaultValue?: Date | null,
 }) {
 	const [open, setOpen] = useState(false)
-	const [date, setDate] = useState<Date | null>(null)
+	const [date, setDate] = useState<Date | null>(defaultValue || null)
 	const [time, setTime] = useState('10:30:00')
 
 	const dateTime: Date | null = useMemo(() => {

@@ -67,11 +67,11 @@ export default function EditorMetadataSettings({
 			</div>
 			<div className="flex gap-2">
 				<Label htmlFor="publishedAt">Publish at</Label>
-				<DateAndTimePicker ref={publishedAtRef} />
+				<DateAndTimePicker defaultValue={news.publishedAt} ref={publishedAtRef} />
 			</div>
 			<div className="flex gap-2">
 				<Label htmlFor="pinnedAt">Pin at</Label>
-				<DateAndTimePicker ref={pinnedAtRef} />
+				<DateAndTimePicker defaultValue={news.pinnedAt} ref={pinnedAtRef} />
 			</div>
 			
 			<Button type="submit" variant={"outline"} disabled={isUpdating} className="min-w-16 xxs:min-w-28 xs:min-w-36 sm:min-w-50">Update</Button>
