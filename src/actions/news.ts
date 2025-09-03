@@ -1,6 +1,5 @@
 'use server'
 
-import { News } from "@/generated/client"
 import * as db from "./db"
 import { z } from 'zod'
 import { UTApi, UTFile } from "uploadthing/server";
@@ -65,16 +64,4 @@ export async function updateNewsMetadata(id: string, formData: FormData): Promis
 
 	const { image, ...restData } = validatedFields.data
 	return await db.updateNewsMetadata(id, {image: imageUrl, ...restData})
-}
-
-export async function fetchPinnedNews(): Promise<News[]> {
-	return db.fetchPinnedNewsFromDB()
-}
-
-export async function fetchNewsBySlug(slug: string): Promise<News | null> {
-	return db.fetchNewsFromDBBySlug(slug)
-}
-
-export async function fetchNewsById(id: string): Promise<News | null> {
-	return db.fetchNewsFromDBById(id)
 }

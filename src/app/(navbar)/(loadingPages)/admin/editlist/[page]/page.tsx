@@ -1,6 +1,7 @@
 'use server'
 import { fetchNews, fetchNewsMaxPage, isCurrentUserAdmin } from "@/actions/db"
 import AdminEditListContent from "@/components/AdminEditListContent"
+import { EDIT_LIST_PAGE_SIZE } from "@/configs/generic"
 import { notFound } from "next/navigation"
 
 export default async function AdminCreatePage({ 
@@ -13,11 +14,11 @@ export default async function AdminCreatePage({
 		return notFound()
 	}
 
-	const pageSize = Number(process.env.EDIT_LIST_PAGE_SIZE)
+	const pageSize = EDIT_LIST_PAGE_SIZE
 
 	const { page } = await params
 	const news = await fetchNews(page, pageSize)
 	const maxPage = await fetchNewsMaxPage(pageSize)
 
-	return <AdminEditListContent page={page} maxPage={maxPage} news={news} />
+	return <AdminEditListContent page={Number(page)} maxPage={maxPage} news={news} />
 }

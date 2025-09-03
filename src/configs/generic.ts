@@ -1,0 +1,1 @@
+export const EDIT_LIST_PAGE_SIZE = 8

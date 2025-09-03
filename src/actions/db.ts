@@ -1,7 +1,7 @@
 'use server'
 
 import { PrismaClient, News, NewsCategory } from "@/generated/client"
-import { PrismaClientKnownRequestError } from "@/generated/internal/prismaNamespace"
+import { NewsWhereInput, PrismaClientKnownRequestError } from "@/generated/internal/prismaNamespace"
 import { getServerSession } from "next-auth"
 import { generateSlug } from 'url-slug-generator'
 
@@ -91,7 +91,7 @@ export async function updateNewsMetadata(id: string, data: UpdateNewsStruct): Pr
 export async function fetchPinnedNewsFromDB(): Promise<News[]> {
 	const date = new Date()
 	const news = await prisma.news.findMany({ where: { isPinned: true, draft: false, publishedAt: { lte: date }, pinnedAt: { lte: date } } })
-	return news.sort((a, b) => (a.pinnedAt!.getTime() - b.pinnedAt!.getTime()))
+	return news.sort((a, b) => (b.pinnedAt!.getTime() - a.pinnedAt!.getTime()))
 }
 
 export async function fetchNewsFromDBBySlug(slug: string): Promise<News | null> {
@@ -102,10 +102,11 @@ export async function fetchNewsFromDBById(id: string): Promise<News | null> {
 	return await prisma.news.findUnique({ where: { id: id } })
 }
 
-export async function fetchNews(page: number, pageSize: number): Promise<News[]> {
+export async function fetchNews(page: number, pageSize: number, where?: NewsWhereInput): Promise<News[]> {
 	return await prisma.news.findMany({
 		skip: (page - 1) * pageSize,
-		take: pageSize
+		take: pageSize,
+		where,
 	})
 }
 

@@ -10,9 +10,11 @@ import { NewsCategory } from "@/generated/client"
 export default function CategoryCombobox({
 	ref,
 	defaultValue,
+	onSelect
 }: {
-	ref: Ref<() => string>,
+	ref?: Ref<() => string>,
 	defaultValue?: string,
+	onSelect?: (value: string) => void,
 }) {
 	const [open, setOpen] = useState(false)
   	const [value, setValue] = useState(defaultValue || '')
@@ -22,6 +24,11 @@ export default function CategoryCombobox({
 	useEffect(() => {
 		fetchCategories().then(setCategories)
 	}, [])
+
+	useEffect(() => {
+		if (!onSelect) return
+		onSelect(value)
+	}, [value])
 
 	useImperativeHandle(ref, () => (() => value))
 

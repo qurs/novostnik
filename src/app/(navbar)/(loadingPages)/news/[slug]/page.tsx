@@ -1,8 +1,8 @@
 'use server'
-import { fetchNewsBySlug } from "@/actions/news"
 import { News } from "@/generated/client"
 import { notFound } from "next/navigation"
 import PageContent from "@/components/PageContent"
+import { fetchNewsFromDBBySlug } from "@/actions/db"
 
 export default async function NewsPage({ 
 	params 
@@ -10,7 +10,7 @@ export default async function NewsPage({
 	params: Promise<{ slug: string }>
 }) {
 	const { slug } = await params
-	const news: News | null = await fetchNewsBySlug(slug)
+	const news: News | null = await fetchNewsFromDBBySlug(slug)
 	if (!news) {
 		return notFound()
 	}

@@ -1,6 +1,5 @@
 'use server'
-import { isCurrentUserAdmin } from "@/actions/db"
-import { fetchNewsById } from "@/actions/news"
+import { isCurrentUserAdmin, fetchNewsFromDBById } from "@/actions/db"
 import AdminEditPageContent from "@/components/AdminEditPageContent"
 import { News } from "@/generated/client"
 import { notFound } from "next/navigation"
@@ -16,7 +15,7 @@ export default async function AdminEditPage({
 	}
 
 	const { id } = await params
-	const news: News | null = await fetchNewsById(id)
+	const news: News | null = await fetchNewsFromDBById(id)
 	if (!news) {
 		return notFound()
 	}

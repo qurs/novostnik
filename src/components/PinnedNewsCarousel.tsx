@@ -8,12 +8,12 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel"
 import NewsCard from "./NewsCard"
-import { fetchPinnedNews } from "@/actions/news"
 import { useState, useEffect } from "react"
 import { News } from "@/generated/client"
 import { Montserrat } from "next/font/google"
 import { useRouter } from "next/navigation"
 import { Skeleton } from "./ui/skeleton"
+import { fetchPinnedNewsFromDB } from "@/actions/db"
 
 const montserrat = Montserrat({
 	subsets: ['latin', 'cyrillic'],
@@ -26,7 +26,7 @@ export default function PinnedNewsCarousel() {
 	const router = useRouter()
 
 	useEffect(() => {
-		fetchPinnedNews().then((data) => {
+		fetchPinnedNewsFromDB().then((data) => {
 			setIsLoading(false)
 			setPinnedNews(data)
 		})
