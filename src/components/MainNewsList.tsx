@@ -2,7 +2,7 @@ import { News } from "@/generated/client";
 import { Pagination, PaginationContent, PaginationEllipsis, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "./ui/pagination";
 import NewsCard from "./NewsCard";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Skeleton } from "./ui/skeleton";
 import { fetchNews, fetchNewsMaxPage } from "@/actions/db";
 import { EDIT_LIST_PAGE_SIZE } from "@/configs/generic";
