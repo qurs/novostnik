@@ -4,7 +4,6 @@ import {
 	Heading1,
 	Heading2,
 	Heading3,
-	ImageIcon,
 	Link,
 	List,
 	ListOrdered,
@@ -19,12 +18,14 @@ import ColorElement, { ColorElementType } from "./elements/ColorElement";
 import TableElement from "./elements/TableElement";
 import ImageElement from "./elements/ImageElement";
 
-export default function EditorMenuBar({ editor }: {editor: Editor}) {
+export default function EditorMenuBar({
+	editor,
+}: {
+	editor: Editor,
+}) {
 	if (!editor) {
 		return null;
 	}
-
-	
 
 	return (
 		<div className="flex flex-wrap items-center border rounded-t-md p-1 mb-1 bg-slate-900 space-x-2 z-50">

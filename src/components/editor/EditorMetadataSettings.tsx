@@ -39,7 +39,7 @@ export default function EditorMetadataSettings({
 					description: res.err
 				})
 			}
-			setIsUpdating(false)
+			setTimeout(() => setIsUpdating(false), 1000)
 		})
 	}
 
