@@ -1,12 +1,13 @@
 'use server'
 
 import { PrismaClient, News, NewsCategory } from "@/generated/prisma/client"
+import { PrismaPg } from '@prisma/adapter-pg'
 import { NewsWhereInput, PrismaClientKnownRequestError } from "@/generated/prisma/internal/prismaNamespace"
 import { getServerSession } from "next-auth"
 import { generateSlug } from 'url-slug-generator'
 
-
-const prisma = new PrismaClient()
+const adapter = new PrismaPg({ connectionString: process.env.DATABASE_URL })
+const prisma = new PrismaClient({ adapter })
 
 export interface NewsResponse {
 	ok: boolean
